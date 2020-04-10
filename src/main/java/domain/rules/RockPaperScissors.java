@@ -7,32 +7,15 @@ import domain.Rules;
 public class RockPaperScissors implements Rules {
     @Override
     public Result decide(Move mine, Move theirs) {
-        switch (mine) {
-            case ROCK:
-                switch (theirs) {
-                    case SCISSORS:
-                        return Result.WIN;
-                    case PAPER:
-                        return Result.LOSE;
-                }
-
-            case PAPER:
-                switch (theirs) {
-                    case ROCK:
-                        return Result.WIN;
-                    case SCISSORS:
-                        return Result.LOSE;
-                }
-
-            case SCISSORS:
-                switch (theirs) {
-                    case PAPER:
-                        return Result.WIN;
-                    case ROCK:
-                        return Result.LOSE;
-                }
+        //Less cases in this instance, does have to go through if statement,
+        // if none match of the wins or draws, return lose
+        //this also fices the fact that the tests were not passing due to the old system.
+        if ((mine == Move.PAPER && theirs == Move.ROCK) || (mine == Move.SCISSORS && theirs == Move.PAPER) || (mine == Move.ROCK && theirs == Move.SCISSORS) ) {
+            return Result.WIN;
+        } else if (mine == theirs) {
+            return Result.DRAW;
         }
 
-        return Result.DRAW;
+        return Result.LOSE;
     }
 }
